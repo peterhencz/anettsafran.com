@@ -117,9 +117,64 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"index.js":[function(require,module,exports) {
+})({"utils.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.doSomething = void 0;
+
+var doSomething = function doSomething(what, cl) {
+  var element = document.createElement(what);
+  element.classList.add("".concat(cl));
+  return element;
+};
+
+exports.doSomething = doSomething;
+},{}],"components/cursor.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _utils = require("../utils.js");
+
+var body = document.body;
+
+var cursor = function cursor() {
+  var circleCursor = (0, _utils.doSomething)("div", "circle-cursor");
+  document.body.addEventListener("mousemove", function (e) {
+    var pageX = e.pageX;
+    var pageY = e.pageY;
+    circleCursor.style.top = "".concat(pageY - 10, "px");
+    circleCursor.style.left = "".concat(pageX - 10, "px");
+  });
+  document.addEventListener("mousedown", function () {
+    circleCursor.classList.add("cursor-down");
+  });
+  document.addEventListener("mouseup", function () {
+    circleCursor.classList.remove("cursor-down");
+  });
+  body.appendChild(circleCursor);
+};
+
+var _default = cursor;
+exports.default = _default;
+},{"../utils.js":"utils.js"}],"index.js":[function(require,module,exports) {
+"use strict";
+
+var _cursor = _interopRequireDefault(require("./components/cursor"));
+
+var _utils = _interopRequireDefault(require("./utils.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+document.body.onload = (0, _cursor.default)();
 console.log("kiscica");
-},{}],"../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./components/cursor":"components/cursor.js","./utils.js":"utils.js"}],"../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -147,7 +202,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64170" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52910" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
